@@ -2,13 +2,13 @@ package herblore;
 
 public class Herblore {
 	private static int amount = 10000;
-	private static int grimy = 0;
-	private static int clean = 0;
-	private static int unf = 3567;
-	private static int vial = 0;
+	private static int grimy = 3760;
+	private static int clean = 3925;
+	private static int unf = 4487;
+	private static int vial = 58;
 	private static int secondary = 9;
-	private static int dose3 = 2856;
-	private static int dose4 = 3757;
+	private static int dose3 = 3875;
+	private static int dose4 = 5167;
 
 	public static void fromGrimy() {
 		int profit = (clean - grimy) * amount;
@@ -66,9 +66,7 @@ public class Herblore {
 	}
 
 	public static void fromUnf() {
-		int seed = unf * amount;
 		System.out.println("\nFrom Unf:");
-		System.out.println("Total seed money for " + amount + " unf:" + seed);
 
 		int extras = (int) (amount * 1.11) - amount;
 		int cost = (unf + secondary) * amount;
