@@ -1,16 +1,32 @@
 package herblore;
 
-public class Herblore {
-	private static int amount = 10000;
-	private static int grimy = 2756;
-	private static int clean = 2995;
-	private static int unf = 3240;
-	private static int vial = 52;
-	private static int secondary = 10;
-	private static int dose3 = 2630;
-	private static int dose4 = 3699;
+import parser.Parser;
 
-	public static void fromGrimy() {
+public class Herblore {
+	private int amount;
+	private int grimy;
+	private int clean;
+	private int unf;
+	private int secondary;
+	private int dose3;
+	private int dose4;
+
+	private int vial = Parser
+			.getGrandExchangePrice("http://services.runescape.com/m=itemdb_rs/Vial_of_water/viewitem?obj=227");
+
+	/** Constructor in order to do calculations on different potions */
+	public Herblore(int amount, int grimy, int clean, int unf, int secondary, int dose3, int dose4) {
+		this.amount = amount;
+		this.grimy = grimy;
+		this.clean = clean;
+		this.unf = unf;
+		this.secondary = secondary;
+		this.dose3 = dose3;
+		this.dose4 = dose4;
+	}
+
+	/** Calculates profits/losses starting from grimy herbs */
+	public void fromGrimy() {
 		/** Calculate how much seed money will be required */
 		int seed = amount * grimy;
 
@@ -25,7 +41,8 @@ public class Herblore {
 		fromClean(grimy + vial);
 	}
 
-	public static void fromClean(int rawCostOfPrimaryIngredient) {
+	/** Calculates profits/losses starting from clean herbs */
+	public void fromClean(int rawCostOfPrimaryIngredient) {
 		if (rawCostOfPrimaryIngredient == (clean + vial)) {
 			int seed = rawCostOfPrimaryIngredient * amount;
 			System.out.println("\nFrom Clean:");
@@ -46,7 +63,8 @@ public class Herblore {
 
 	}
 
-	public static int fromUnf(int rawCostOfPrimaryIngredient) {
+	/** Calculates profits/losses starting from unfilled potions */
+	public int fromUnf(int rawCostOfPrimaryIngredient) {
 		if (rawCostOfPrimaryIngredient == unf) {
 			System.out.println("\nFrom Unf:");
 		}
@@ -119,14 +137,13 @@ public class Herblore {
 		}
 	}
 
-	public static void doAllCalculations() {
+	/**
+	 * Calculates profits/losses starting from grimy, clean and unfilled potions
+	 */
+	public void doAllCalculations() {
 		fromGrimy();
 		fromClean(clean + vial);
 		fromUnf(unf);
-	}
-
-	public static void main(String[] args) {
-		doAllCalculations();
 	}
 
 }
