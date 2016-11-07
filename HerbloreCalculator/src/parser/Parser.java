@@ -10,6 +10,18 @@ import org.jsoup.nodes.Document;
 
 public class Parser {
 
+	/** Returns the name of the potion */
+	public static String getNameOfPotion(String url) {
+		String name = "";
+		try {
+			Document doc = Jsoup.connect(url).get();
+			name = doc.select("h2").first().ownText();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return name;
+	}
+
 	/** Returns the current grand exchange price of an item as an int */
 	public static int getGrandExchangePrice(String url) {
 		String grandExchangePrice = "";

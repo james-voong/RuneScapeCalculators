@@ -3,7 +3,7 @@ package herblore;
 import parser.Parser;
 
 public class Herblore {
-	private int amount;
+	private String name;
 	private int grimy;
 	private int clean;
 	private int unf;
@@ -11,18 +11,25 @@ public class Herblore {
 	private int dose3;
 	private int dose4;
 
-	private int vial = Parser
+	private int amount;
+
+	private static int vial = Parser
 			.getGrandExchangePrice("http://services.runescape.com/m=itemdb_rs/Vial_of_water/viewitem?obj=227");
 
 	/** Constructor in order to do calculations on different potions */
-	public Herblore(int amount, int grimy, int clean, int unf, int secondary, int dose3, int dose4) {
+	public Herblore(String name, String grimy, String clean, String unf, String secondary, String dose3, String dose4,
+			int amount) {
+
+		this.name = Parser.getNameOfPotion(name);
+		this.grimy = Parser.getGrandExchangePrice(grimy);
+		this.clean = Parser.getGrandExchangePrice(clean);
+		this.unf = Parser.getGrandExchangePrice(unf);
+		this.secondary = Parser.getGrandExchangePrice(secondary);
+		this.dose3 = Parser.getGrandExchangePrice(dose3);
+		this.dose4 = Parser.getGrandExchangePrice(dose4);
+
 		this.amount = amount;
-		this.grimy = grimy;
-		this.clean = clean;
-		this.unf = unf;
-		this.secondary = secondary;
-		this.dose3 = dose3;
-		this.dose4 = dose4;
+
 	}
 
 	/** Calculates profits/losses starting from grimy herbs */
@@ -144,6 +151,11 @@ public class Herblore {
 		fromGrimy();
 		fromClean(clean + vial);
 		fromUnf(unf);
+	}
+
+	/** Gets the name of the potion */
+	public String getName() {
+		return name;
 	}
 
 }
