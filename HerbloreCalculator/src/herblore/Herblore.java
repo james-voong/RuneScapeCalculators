@@ -3,13 +3,10 @@ package herblore;
 import parser.Parser;
 
 public class Herblore {
+
 	private String name;
-	private int grimy;
-	private int clean;
-	private int unf;
-	private int secondary;
-	private int dose3;
-	private int dose4;
+	private int grimy, clean, unf, secondary;
+	private int dose3, dose4;
 
 	private int amount;
 
@@ -34,6 +31,8 @@ public class Herblore {
 
 	/** Calculates profits/losses starting from grimy herbs */
 	public void fromGrimy() {
+
+		printName();
 		/** Calculate how much seed money will be required */
 		int seed = amount * grimy;
 
@@ -50,6 +49,8 @@ public class Herblore {
 
 	/** Calculates profits/losses starting from clean herbs */
 	public void fromClean(int rawCostOfPrimaryIngredient) {
+
+		printName();
 		if (rawCostOfPrimaryIngredient == (clean + vial)) {
 			int seed = rawCostOfPrimaryIngredient * amount;
 			System.out.println("\nFrom Clean:");
@@ -72,6 +73,8 @@ public class Herblore {
 
 	/** Calculates profits/losses starting from unfilled potions */
 	public int fromUnf(int rawCostOfPrimaryIngredient) {
+
+		printName();
 		if (rawCostOfPrimaryIngredient == unf) {
 			System.out.println("\nFrom Unf:");
 		}
@@ -148,14 +151,22 @@ public class Herblore {
 	 * Calculates profits/losses starting from grimy, clean and unfilled potions
 	 */
 	public void doAllCalculations() {
+
+		printName();
 		fromGrimy();
 		fromClean(clean + vial);
 		fromUnf(unf);
 	}
 
-	/** Gets the name of the potion */
-	public String getName() {
-		return name;
+	private boolean namePrinted = true;
+
+	/** Local method to control whether the name needs to be printed */
+	private void printName() {
+
+		if (namePrinted == true) {
+			System.out.println(name);
+			namePrinted = false;
+		}
 	}
 
 }
