@@ -2,10 +2,12 @@ package herblore;
 
 import parser.Parser;
 
-public class Herblore {
+/** Abstract class that contains calculation methods */
+public abstract class Potion {
 
 	private String name;
 	private int grimy, clean, unf, secondary;
+
 	private int dose3, dose4;
 
 	private int amount;
@@ -13,11 +15,10 @@ public class Herblore {
 	private static int vial = Parser
 			.getGrandExchangePrice("http://services.runescape.com/m=itemdb_rs/Vial_of_water/viewitem?obj=227");
 
-	/** Constructor in order to do calculations on different potions */
-	public Herblore(String name, String grimy, String clean, String unf, String secondary, String dose3, String dose4,
-			int amount) {
+	/** Constructor in order to do calculations on tradable potions */
+	public Potion(String grimy, String clean, String unf, String secondary, String dose3, String dose4, int amount) {
 
-		this.name = Parser.getNameOfPotion(name);
+		this.name = Parser.getNameOfPotion(dose3);
 		this.grimy = Parser.getGrandExchangePrice(grimy);
 		this.clean = Parser.getGrandExchangePrice(clean);
 		this.unf = Parser.getGrandExchangePrice(unf);
@@ -29,8 +30,38 @@ public class Herblore {
 
 	}
 
+	/** Constructor for untradable potions */
+	public Potion(String name, String grimy, String clean, String unf, String secondary, int amount) {
+
+		this.name = name;
+		this.grimy = Parser.getGrandExchangePrice(grimy);
+		this.clean = Parser.getGrandExchangePrice(clean);
+		this.unf = Parser.getGrandExchangePrice(unf);
+		this.secondary = Parser.getGrandExchangePrice(secondary);
+		this.dose3 = 0;
+		this.dose4 = 0;
+
+		this.amount = amount;
+
+	}
+
+	/** Works out the net profit starting from grimy herbs */
+	public void printPotionNetProfitFromGrimy() {
+		calculatePotionNetProfitFromGrimy();
+	}
+
+	/** Works out the net profit starting from clean herbs */
+	public void printPotionNetProfitFromClean() {
+		calculatePotionNetProfitFromClean(clean + vial);
+	}
+
+	/** Works out the net profit starting from unfilled potions */
+	public void printPotionNetProfitFromUnf() {
+		calculatePotionNetProfitFromUnf(unf);
+	}
+
 	/** Calculates profits/losses starting from grimy herbs */
-	public void fromGrimy() {
+	private void calculatePotionNetProfitFromGrimy() {
 
 		printName();
 		/** Calculate how much seed money will be required */
@@ -44,11 +75,11 @@ public class Herblore {
 		System.out.println("Profit from cleaning: " + profit);
 
 		/** Call fromClean to do rest of the calculations */
-		fromClean(grimy + vial);
+		calculatePotionNetProfitFromClean(grimy + vial);
 	}
 
 	/** Calculates profits/losses starting from clean herbs */
-	public void fromClean(int rawCostOfPrimaryIngredient) {
+	private void calculatePotionNetProfitFromClean(int rawCostOfPrimaryIngredient) {
 
 		printName();
 		if (rawCostOfPrimaryIngredient == (clean + vial)) {
@@ -65,14 +96,14 @@ public class Herblore {
 		System.out.println("Profit from making unf:" + (unfNetProfit));
 
 		/** Call fromUnf to do the remaining calculations of profit */
-		int valueFromMakingPot = fromUnf(rawCostOfPrimaryIngredient + vial);
+		int valueFromMakingPot = calculatePotionNetProfitFromUnf(rawCostOfPrimaryIngredient + vial);
 		System.out.println("NB there will still be remaining unfs, value of which will be " + valueOfExtraUnfsFromScroll
 				+ ", bringing total net profit to " + (valueFromMakingPot + valueOfExtraUnfsFromScroll));
 
 	}
 
 	/** Calculates profits/losses starting from unfilled potions */
-	public int fromUnf(int rawCostOfPrimaryIngredient) {
+	private int calculatePotionNetProfitFromUnf(int rawCostOfPrimaryIngredient) {
 
 		printName();
 		if (rawCostOfPrimaryIngredient == unf) {
@@ -153,9 +184,9 @@ public class Herblore {
 	public void doAllCalculations() {
 
 		printName();
-		fromGrimy();
-		fromClean(clean + vial);
-		fromUnf(unf);
+		printPotionNetProfitFromGrimy();
+		printPotionNetProfitFromClean();
+		printPotionNetProfitFromUnf();
 	}
 
 	private boolean namePrinted = true;
@@ -164,9 +195,38 @@ public class Herblore {
 	private void printName() {
 
 		if (namePrinted == true) {
+			System.out.println();
 			System.out.println(name);
 			namePrinted = false;
 		}
+	}
+
+	public void setGrimy(int grimy) {
+		this.grimy = grimy;
+	}
+
+	public void setClean(int clean) {
+		this.clean = clean;
+	}
+
+	public void setUnf(int unf) {
+		this.unf = unf;
+	}
+
+	public void setSecondary(int secondary) {
+		this.secondary = secondary;
+	}
+
+	public void setDose3(int dose3) {
+		this.dose3 = dose3;
+	}
+
+	public void setDose4(int dose4) {
+		this.dose4 = dose4;
+	}
+
+	public static void setVial(int vial) {
+		Potion.vial = vial;
 	}
 
 }
