@@ -46,4 +46,52 @@ public class TradablePotion extends Potion {
 		Potion superStrength = new TradablePotion(grimy, clean, unf, secondary, dose3, dose4, amount);
 		return superStrength;
 	}
+
+	public static Potion prayerRestore(int amount) {
+		String grimy = "http://services.runescape.com/m=itemdb_rs/Grimy_ranarr/viewitem?obj=207";
+		String clean = "http://services.runescape.com/m=itemdb_rs/Clean_ranarr/viewitem?obj=257";
+		String unf = "http://services.runescape.com/m=itemdb_rs/Ranarr_potion_(unf)/viewitem?obj=99";
+		String secondary = "http://services.runescape.com/m=itemdb_rs/Snape_grass/viewitem?obj=231";
+		String dose3 = "http://services.runescape.com/m=itemdb_rs/Prayer_potion_(3)/viewitem?obj=139";
+		String dose4 = "http://services.runescape.com/m=itemdb_rs/Prayer_potion_(4)/viewitem?obj=2434";
+
+		Potion prayerRestore = new TradablePotion(grimy, clean, unf, secondary, dose3, dose4, amount);
+		return prayerRestore;
+	}
+
+	public static Potion prayerRenewal(int amount) {
+		String grimy = "http://services.runescape.com/m=itemdb_rs/Grimy_fellstalk/viewitem?obj=21626";
+		String clean = "http://services.runescape.com/m=itemdb_rs/Clean_fellstalk/viewitem?obj=21624";
+		String unf = "http://services.runescape.com/m=itemdb_rs/Fellstalk_potion_(unf)/viewitem?obj=21628";
+		String secondary = "http://services.runescape.com/m=itemdb_rs/Morchella_mushroom/viewitem?obj=21622";
+		String dose3 = "http://services.runescape.com/m=itemdb_rs/Prayer_renewal_(3)/viewitem?obj=21632";
+		String dose4 = "http://services.runescape.com/m=itemdb_rs/Prayer_renewal_(4)/viewitem?obj=21630";
+
+		Potion prayerRenewal = new TradablePotion(grimy, clean, unf, secondary, dose3, dose4, amount);
+		return prayerRenewal;
+	}
+
+	public static Potion saradominBrew(int amount) {
+		String grimy = "http://services.runescape.com/m=itemdb_rs/Grimy_toadflax/viewitem?obj=3049";
+		String clean = "http://services.runescape.com/m=itemdb_rs/Clean_toadflax/viewitem?obj=2998";
+		String unf = "http://services.runescape.com/m=itemdb_rs/Toadflax_potion_(unf)/viewitem?obj=3002";
+		String secondary = "http://services.runescape.com/m=itemdb_rs/Crushed_nest/viewitem?obj=6693";
+		String dose3 = "http://services.runescape.com/m=itemdb_rs/Saradomin_brew_(3)/viewitem?obj=6687";
+		String dose4 = "http://services.runescape.com/m=itemdb_rs/Saradomin_brew_(4)/viewitem?obj=6685";
+
+		Potion saradominBrew = new TradablePotion(grimy, clean, unf, secondary, dose3, dose4, amount);
+		return saradominBrew;
+	}
+
+	public static Potion zamorakBrew(int amount) {
+		String grimy = "http://services.runescape.com/m=itemdb_rs/Grimy_torstol/viewitem?obj=219";
+		String clean = "http://services.runescape.com/m=itemdb_rs/Clean_torstol/viewitem?obj=269";
+		String unf = "http://services.runescape.com/m=itemdb_rs/Torstol_potion_(unf)/viewitem?obj=111";
+		String secondary = "http://services.runescape.com/m=itemdb_rs/Jangerberries/viewitem?obj=247";
+		String dose3 = "http://services.runescape.com/m=itemdb_rs/Zamorak_brew_(3)/viewitem?obj=189";
+		String dose4 = "http://services.runescape.com/m=itemdb_rs/Zamorak_brew_(4)/viewitem?obj=2450";
+
+		Potion zamorakBrew = new TradablePotion(grimy, clean, unf, secondary, dose3, dose4, amount);
+		return zamorakBrew;
+	}
 }
