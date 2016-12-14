@@ -18,7 +18,7 @@ public abstract class Potion {
 	/** Constructor in order to do calculations on tradable potions */
 	public Potion(String grimy, String clean, String unf, String secondary, String dose3, String dose4, int amount) {
 
-		this.name = Parser.getNameOfPotion(dose3);
+		this.name = Parser.getNameOfItem(dose3);
 		this.grimy = Parser.getGrandExchangePrice(grimy);
 		this.clean = Parser.getGrandExchangePrice(clean);
 		this.unf = Parser.getGrandExchangePrice(unf);

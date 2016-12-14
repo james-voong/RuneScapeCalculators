@@ -10,8 +10,8 @@ import org.jsoup.nodes.Document;
 
 public class Parser {
 
-	/** Returns the name of the potion */
-	public static String getNameOfPotion(String url) {
+	/** Returns the name of the item */
+	public static String getNameOfItem(String url) {
 		String name = "";
 		try {
 			Document doc = Jsoup.connect(url).get();
@@ -27,7 +27,7 @@ public class Parser {
 		String grandExchangePrice = "";
 		try {
 			Document doc = Jsoup.connect(url).get();
-			grandExchangePrice = doc.select("h3").select("span").first().ownText();
+			grandExchangePrice = doc.select("h3").select("span").attr("title");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -46,5 +46,6 @@ public class Parser {
 			e.printStackTrace();
 		}
 		return parsed;
+
 	}
 }
