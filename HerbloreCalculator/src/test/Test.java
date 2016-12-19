@@ -1,9 +1,11 @@
 package test;
 
+import bond.Bond;
 import herblore.TradablePotion;
 import smithing.Adamant;
 import smithing.Runite;
 
+@SuppressWarnings("unused")
 public class Test {
 	public static void main(String[] args) {
 
@@ -17,7 +19,9 @@ public class Test {
 
 		// Runite.MedHelm().printNetProfitFromSmithingBars(1);
 		// Adamant.PlateBody().printNetProfitFromSmithingBars(1);
-		Adamant.Claw().printNetProfitFromSmithingBars(1000);
+		// Adamant.Claw().printNetProfitFromSmithingBars(1000);
+
+		Bond.doCalculation();
 	}
 
 }

@@ -37,7 +37,7 @@ public class Parser {
 	/**
 	 * Parses a string into an integer, assuming UK number formatting is used
 	 */
-	private static int parseInt(String parseMe) {
+	public static int parseInt(String parseMe) {
 		NumberFormat ukFormat = NumberFormat.getNumberInstance(Locale.UK);
 		int parsed = 0;
 		try {
@@ -46,6 +46,20 @@ public class Parser {
 			e.printStackTrace();
 		}
 		return parsed;
-
 	}
+
+	/**
+	 * Parses a string into a double, assuming UK number formatting is used
+	 */
+	public static double parseDouble(String parseMe) {
+		NumberFormat ukFormat = NumberFormat.getNumberInstance(Locale.UK);
+		double parsed = 0;
+		try {
+			parsed = ukFormat.parse(parseMe).doubleValue();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return parsed;
+	}
+
 }
