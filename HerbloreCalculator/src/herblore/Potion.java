@@ -127,10 +127,15 @@ public abstract class Potion {
 
 		/**
 		 * The values of 3 and 4 dose from using the factory outfit. 10% will be
-		 * 4 converted to 4 dose pots
+		 * converted to 4 dose pots
+		 * 
+		 * Also converting due to botanist's amulet. 5% will be converted to 4
+		 * dose pots.
+		 * 
+		 * Totalling 15% of pots being converted to 4 dose pots
 		 */
-		int totalValueOf3DosePots = (int) ((amount * 0.9) * dose3);
-		int totalValueOf4DosePots = (int) ((amount * 0.1) * dose4);
+		int totalValueOf3DosePots = (int) ((amount * 0.85) * dose3);
+		int totalValueOf4DosePots = (int) ((amount * 0.15) * dose4);
 
 		/** The total value of selling the remaining potions */
 		int totalValuePots = valueOfExtra3DosePotsFromWell + totalValueOf3DosePots + totalValueOf4DosePots;
