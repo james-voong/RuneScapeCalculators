@@ -1,11 +1,11 @@
 package smithing;
 
 public class Runite extends Metal {
-	private static String barName = "http://services.runescape.com/m=itemdb_rs/a=13/Rune_bar/viewitem?obj=2363";
-	private static String ore = "http://services.runescape.com/m=itemdb_rs/a=13/Runite_ore/viewitem?obj=451";
+	private static String barURL = "http://services.runescape.com/m=itemdb_rs/a=13/Rune_bar/viewitem?obj=2363";
+	private static String oreURL = "http://services.runescape.com/m=itemdb_rs/a=13/Runite_ore/viewitem?obj=451";
 
 	public Runite(String itemName, int barsPerItem) {
-		super(barName, ore, 8, itemName, barsPerItem);
+		super(barURL, oreURL, 8, itemName, barsPerItem);
 
 	}
 

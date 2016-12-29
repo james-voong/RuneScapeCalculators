@@ -31,7 +31,7 @@ public abstract class Metal {
 	}
 
 	public void printNetProfitFromSmithingBars(int amount) {
-		int netProfit = calculateNetProfitFromSmithingBars(amount, 0, 0);
+		int netProfit = calculateNetProfitFromSmithingBars(amount, null, null);
 		System.out.println("\nNet profit from smithing " + amount + " " + itemName + "s: " + netProfit);
 	}
 
@@ -49,7 +49,7 @@ public abstract class Metal {
 		int barCost = coalNumber * coalPrice + orePrice;
 		int totalBarCost = barCost * amount * barsPerItem;
 
-		double extraBarsFromSmelting = amount * 0.05 * barPrice;
+		double extraBarsFromSmelting = amount * 0.05 * (barPrice * barsPerItem);
 		// double extraBarsFromSmithing = amount * 0.1 * barPrice;
 
 		// int savingsFromScroll = getSavingsFromScroll(amount);
@@ -64,12 +64,12 @@ public abstract class Metal {
 	}
 
 	/** Calculates net profit of buying bars and smithing them */
-	private int calculateNetProfitFromSmithingBars(int amount, int totalBarCost, double extraBarsFromSmelting) {
-		if (totalBarCost == 0) {
+	private int calculateNetProfitFromSmithingBars(int amount, Integer totalBarCost, Double extraBarsFromSmelting) {
+		if (totalBarCost == null) {
 			totalBarCost = barPrice * amount * barsPerItem;
 		}
 
-		double extraBarsFromSmithing = amount * 0.1 * barPrice;
+		double extraBarsFromSmithing = amount * 0.1 * (barPrice * barsPerItem);
 
 		// This accounts for the scroll of efficiency
 		int savingsFromScroll = getSavingsFromScroll(amount);

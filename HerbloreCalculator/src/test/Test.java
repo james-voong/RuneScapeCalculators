@@ -8,6 +8,7 @@ import smithing.Runite;
 @SuppressWarnings("unused")
 public class Test {
 	public static void main(String[] args) {
+		// Bond.doCalculation();
 
 		// TradablePotion.superAttack(17963).printPotionNetProfitFromUnf();
 		// TradablePotion.superDefence(11976).printPotionNetProfitFromUnf();
@@ -17,11 +18,10 @@ public class Test {
 		// TradablePotion.saradominBrew(10978).printPotionNetProfitFromUnf();
 		// TradablePotion.zamorakBrew(11291).printPotionNetProfitFromUnf();
 
-		Runite.MedHelm().printNetProfitFromSmithingBars(1);
-		Adamant.PlateBody().printNetProfitFromSmithingBars(1);
-		Adamant.Claw().printNetProfitFromSmithingBars(1);
+		// Runite.MedHelm().printNetProfitFromSmithingBars(1);
+		// Adamant.PlateBody().printNetProfitFromSmithingBars(1);
+		// Adamant.Claw().printNetProfitFromSmithingBars(1);
 
-		// Bond.doCalculation();
 
 	}
 

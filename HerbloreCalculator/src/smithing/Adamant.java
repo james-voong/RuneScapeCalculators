@@ -2,11 +2,11 @@ package smithing;
 
 public class Adamant extends Metal {
 
-	private static String barName = "http://services.runescape.com/m=itemdb_rs/a=13/Adamant_bar/viewitem?obj=2361";
-	private static String ore = "http://services.runescape.com/m=itemdb_rs/a=13/Adamantite_ore/viewitem?obj=449";
+	private static String barURL = "http://services.runescape.com/m=itemdb_rs/a=13/Adamant_bar/viewitem?obj=2361";
+	private static String oreURL = "http://services.runescape.com/m=itemdb_rs/a=13/Adamantite_ore/viewitem?obj=449";
 
 	public Adamant(String itemName, int barsPerItem) {
-		super(barName, ore, 6, itemName, barsPerItem);
+		super(barURL, oreURL, 6, itemName, barsPerItem);
 
 	}
 

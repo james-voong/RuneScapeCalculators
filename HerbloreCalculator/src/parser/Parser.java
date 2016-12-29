@@ -51,6 +51,7 @@ public class Parser {
 	/**
 	 * Parses a string into a double, assuming UK number formatting is used
 	 */
+
 	public static double parseDouble(String parseMe) {
 		NumberFormat ukFormat = NumberFormat.getNumberInstance(Locale.UK);
 		double parsed = 0;
@@ -61,5 +62,4 @@ public class Parser {
 		}
 		return parsed;
 	}
-
 }
