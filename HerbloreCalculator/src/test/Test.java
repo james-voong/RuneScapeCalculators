@@ -1,6 +1,10 @@
 package test;
 
 import bond.Bond;
+import crafting.BlackDragonhide;
+import crafting.BlueDragonhide;
+import crafting.GreenDragonhide;
+import crafting.RedDragonhide;
 import herblore.TradablePotion;
 import smithing.Adamant;
 import smithing.Runite;
@@ -22,7 +26,10 @@ public class Test {
 		// Adamant.PlateBody().printNetProfitFromSmithingBars(1);
 		// Adamant.Claw().printNetProfitFromSmithingBars(1);
 
-
+		// BlackDragonhide.printAllFromLeather(24875);
+		// RedDragonhide.printAllFromLeather(27327);
+		// BlueDragonhide.printAllFromLeather(30450);
+		// GreenDragonhide.printAllFromLeather(34379);
 	}
 
 }

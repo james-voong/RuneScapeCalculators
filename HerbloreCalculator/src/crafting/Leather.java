@@ -40,7 +40,7 @@ public abstract class Leather {
 	}
 
 	private int calculateProfitFromHide(int amount) {
-		int cost = (hidePrice + priceToTan) * amount;
+		int cost = (hidePrice + priceToTan) * amount * leatherPerItem;
 		int netProfit = calculateProfitFromLeather(amount, cost);
 		return netProfit;
 
@@ -48,7 +48,7 @@ public abstract class Leather {
 
 	private int calculateProfitFromLeather(int amount, Integer cost) {
 		if (cost == null) {
-			cost = leatherPrice * amount;
+			cost = leatherPrice * amount * leatherPerItem;
 		}
 		int savingsFromPortable = (int) (amount * 0.1 * (leatherPrice * leatherPerItem));
 		int savingsFromScroll = getSavingsFromScroll(amount);
