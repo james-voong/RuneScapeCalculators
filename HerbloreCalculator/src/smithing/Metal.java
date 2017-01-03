@@ -1,5 +1,11 @@
 package smithing;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import parser.Parser;
 
 public abstract class Metal {
@@ -10,13 +16,75 @@ public abstract class Metal {
 			.getGrandExchangePrice("http://services.runescape.com/m=itemdb_rs/a=13/Coal/viewitem?obj=453");
 
 	public Metal(String barName, String ore, int coalNumber, String itemName, int barsPerItem) {
-		this.barName = Parser.getNameOfItem(barName);
-		this.orePrice = Parser.getGrandExchangePrice(ore);
-		this.barPrice = Parser.getGrandExchangePrice(barName);
+		// Create service
+		ExecutorService executorService = Executors.newWorkStealingPool();
+
+		// Submit tasks to executorService.
+		Future<String> barName_f = executorService.submit(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				return Parser.getNameOfItem(barName);
+			}
+		});
+
+		Future<String> itemName_f = executorService.submit(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				return Parser.getNameOfItem(itemName);
+			}
+		});
+
+		Future<Integer> orePrice_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(ore);
+			}
+		});
+
+		Future<Integer> barPrice_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(barName);
+			}
+		});
+
+		Future<Integer> itemSellPrice_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(itemName);
+			}
+		});
+
+		/**
+		 * Shutdown executorService. (It will no longer accept tasks, but will
+		 * complete the ones in progress.)
+		 */
+		executorService.shutdown();
+
+		// Handle results of the tasks.
+		try {
+			// Note: get() will block until the task is complete
+			this.barName = barName_f.get();
+			this.itemName = itemName_f.get();
+			this.barPrice = barPrice_f.get();
+			this.orePrice = orePrice_f.get();
+			this.itemSellPrice = itemSellPrice_f.get();
+
+		} catch (InterruptedException e) {
+			// TODO Handle it
+		} catch (ExecutionException e) {
+			// TODO Handle it
+		}
+
+		// this.barName = Parser.getNameOfItem(barName);
+		// this.orePrice = Parser.getGrandExchangePrice(ore);
+		// this.barPrice = Parser.getGrandExchangePrice(barName);
+
+		// this.itemName = Parser.getNameOfItem(itemName);
+		// this.itemSellPrice = Parser.getGrandExchangePrice(itemName);
+
 		this.coalNumber = coalNumber;
 		this.barsPerItem = barsPerItem;
-		this.itemName = Parser.getNameOfItem(itemName);
-		this.itemSellPrice = Parser.getGrandExchangePrice(itemName);
 
 	}
 

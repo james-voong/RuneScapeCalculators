@@ -1,5 +1,11 @@
 package crafting;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import parser.Parser;
 
 public abstract class Leather {
@@ -8,15 +14,68 @@ public abstract class Leather {
 	private static int priceToTan = 20;
 
 	public Leather(String leatherName, String itemName, String hidePrice, String leatherPrice, int leatherPerItem) {
+		// Create service
+		ExecutorService executorService = Executors.newWorkStealingPool();
 
-		this.leatherName = Parser.getNameOfItem(leatherName);
-		this.itemName = Parser.getNameOfItem(itemName);
+		// Submit tasks to executorService.
+		Future<String> leatherName_f = executorService.submit(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				return Parser.getNameOfItem(leatherName);
+			}
+		});
 
-		this.hidePrice = Parser.getGrandExchangePrice(hidePrice);
-		this.leatherPrice = Parser.getGrandExchangePrice(leatherPrice);
-		this.itemPrice = Parser.getGrandExchangePrice(itemName);
+		Future<String> itemName_f = executorService.submit(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				return Parser.getNameOfItem(itemName);
+			}
+		});
 
-		this.leatherPerItem = leatherPerItem;
+		Future<Integer> hidePrice_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(hidePrice);
+			}
+		});
+
+		Future<Integer> leatherPrice_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(leatherPrice);
+			}
+		});
+
+		Future<Integer> itemPrice_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(itemName);
+			}
+		});
+
+		/**
+		 * Shutdown executorService. (It will no longer accept tasks, but will
+		 * complete the ones in progress.)
+		 */
+		executorService.shutdown();
+
+		// Handle results of the tasks.
+		try {
+			// Note: get() will block until the task is complete
+			this.leatherName = leatherName_f.get();
+			this.itemName = itemName_f.get();
+
+			this.hidePrice = hidePrice_f.get();
+			this.leatherPrice = leatherPrice_f.get();
+			this.itemPrice = itemPrice_f.get();
+
+			this.leatherPerItem = leatherPerItem;
+		} catch (InterruptedException e) {
+			// TODO Handle it
+		} catch (ExecutionException e) {
+			// TODO Handle it
+		}
+
 	}
 
 	public void printProfitFromTanning(int amount) {

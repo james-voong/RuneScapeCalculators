@@ -1,5 +1,11 @@
 package herblore;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import parser.Parser;
 
 /** Abstract class that contains calculation methods */
@@ -17,16 +23,82 @@ public abstract class Potion {
 
 	/** Constructor in order to do calculations on tradable potions */
 	public Potion(String grimy, String clean, String unf, String secondary, String dose3, String dose4, int amount) {
+		// Create service
+		ExecutorService executorService = Executors.newWorkStealingPool();
 
-		this.name = Parser.getNameOfItem(dose3);
-		this.grimy = Parser.getGrandExchangePrice(grimy);
-		this.clean = Parser.getGrandExchangePrice(clean);
-		this.unf = Parser.getGrandExchangePrice(unf);
-		this.secondary = Parser.getGrandExchangePrice(secondary);
-		this.dose3 = Parser.getGrandExchangePrice(dose3);
-		this.dose4 = Parser.getGrandExchangePrice(dose4);
+		// Submit tasks to executorService.
+		Future<String> name_f = executorService.submit(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				return Parser.getNameOfItem(dose3);
+			}
+		});
 
-		this.amount = amount;
+		Future<Integer> grimy_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(grimy);
+			}
+		});
+
+		Future<Integer> clean_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(clean);
+			}
+		});
+
+		Future<Integer> unf_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(unf);
+			}
+		});
+
+		Future<Integer> secondary_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(secondary);
+			}
+		});
+
+		Future<Integer> dose3_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(dose3);
+			}
+		});
+
+		Future<Integer> dose4_f = executorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return Parser.getGrandExchangePrice(dose4);
+			}
+		});
+
+		/**
+		 * Shutdown executorService. (It will no longer accept tasks, but will
+		 * complete the ones in progress.)
+		 */
+		executorService.shutdown();
+
+		// Handle results of the tasks.
+		try {
+			// Note: get() will block until the task is complete
+			this.name = name_f.get();
+			this.grimy = grimy_f.get();
+			this.clean = clean_f.get();
+			this.unf = unf_f.get();
+			this.secondary = secondary_f.get();
+			this.dose3 = dose3_f.get();
+			this.dose4 = dose4_f.get();
+			this.amount = amount;
+
+		} catch (InterruptedException e) {
+			// TODO Handle it
+		} catch (ExecutionException e) {
+			// TODO Handle it
+		}
 
 	}
 
@@ -72,7 +144,7 @@ public abstract class Potion {
 
 		System.out.println("From Grimy:");
 		System.out.println("Total seed money for " + amount + " herbs:" + seed);
-		System.out.println("Profit from cleaning: " + profit);
+		System.out.println("Profit from cleaning: " + profit + "\n");
 
 		/** Call fromClean to do rest of the calculations */
 		calculatePotionNetProfitFromClean(grimy + vial);
@@ -107,7 +179,7 @@ public abstract class Potion {
 
 		printName();
 		if (rawCostOfPrimaryIngredient == unf) {
-			System.out.println("\nFrom Unf:");
+			System.out.println("From Unf:");
 		}
 		/** Extra secondary ingredients saved from the Scroll of Cleansing */
 		double extraSecondariesFromScroll = (amount * 1.11) - amount;

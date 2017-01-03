@@ -49,6 +49,7 @@ public class RedDragonhide extends Leather {
 		RedDragonhide.Chaps().printProfitFromLeather(leathersNeeded / 2);
 		RedDragonhide.Vambraces().printProfitFromLeather(leathersNeeded);
 		RedDragonhide.Shield().printProfitFromLeather(leathersNeeded / 4);
+		System.out.println();
 	}
 
 }
