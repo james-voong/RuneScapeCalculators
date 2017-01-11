@@ -136,6 +136,9 @@ public abstract class Metal {
 		if (totalBarCost == null) {
 			totalBarCost = barPrice * amount * barsPerItem;
 		}
+		if (extraBarsFromSmelting == null) {
+			extraBarsFromSmelting = 0.0;
+		}
 
 		double extraBarsFromSmithing = amount * 0.1 * (barPrice * barsPerItem);
 
