@@ -51,5 +51,14 @@ public class BlueDragonhide extends Leather {
 		BlueDragonhide.Shield().printProfitFromLeather(leathersNeeded / 4);
 		System.out.println();
 	}
+	
+	public static void printAllFromHide(int leathersNeeded) {
+		BlueDragonhide.Coif().printProfitFromHide(leathersNeeded / 2);
+		BlueDragonhide.Body().printProfitFromHide(leathersNeeded / 3);
+		BlueDragonhide.Chaps().printProfitFromHide(leathersNeeded / 2);
+		BlueDragonhide.Vambraces().printProfitFromHide(leathersNeeded);
+		BlueDragonhide.Shield().printProfitFromHide(leathersNeeded / 4);
+		System.out.println();
+	}
 
 }
